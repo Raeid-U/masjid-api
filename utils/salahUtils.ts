@@ -89,6 +89,7 @@ export function calculatePrayerTimes(
   const julianDate = getJulianDate(parsedDate);
   const { declination, equationOfTime } = calculateSolarParameters(julianDate);
   const timezone = detectTimezone(latitude, longitude);
+  const offset = detectTimezoneOffset(latitude, longitude);
 
   const noon = (12 - equationOfTime - longitude / 15 + 24) % 24;
 
@@ -129,6 +130,7 @@ export function calculatePrayerTimes(
 
   return {
     Timezone: timezone,
+    "Offset from UTC": String(offset),
     Fajr: formatTime(localFajr),
     Shuruq: formatTime(localShuruq),
     Dhuhr: formatTime(localDhuhr),

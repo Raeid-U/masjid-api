@@ -115,3 +115,9 @@ GET http://localhost:7860/salah?longitude=-79.74&latitude=43.74&date=2025-01-24
 - Ensure `tsc` is installed globally or use `npx tsc` to compile the TypeScript files.
 - The compiled `.js` files are located in the `dist/` directory.
 - Modify `PORT` in `app.js` if needed.
+
+---
+
+## Current Issues
+- Timezone Offet is not 100% accurate
+- Revision to `timezoneUtils.ts` is required

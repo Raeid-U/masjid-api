@@ -54,7 +54,7 @@ The following scripts are available in `package.json`:
 
 - **Build and start together:**
   ```bash
-  npm run masjid-api-start
+  npm run api-start
   ```
   Combines `build` and `start` into a single command.
 

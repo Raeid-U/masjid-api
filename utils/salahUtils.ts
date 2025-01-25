@@ -1,41 +1,5 @@
+import { toDegrees, toRadians, formatTime, getJulianDate } from "./utility";
 import { detectTimezone, detectTimezoneOffset } from "./timezoneUtils";
-
-// Utility functions
-function toRadians(degrees: number): number {
-  return (degrees * Math.PI) / 180;
-}
-
-function toDegrees(radians: number): number {
-  return (radians * 180) / Math.PI;
-}
-
-function formatTime(hours: number): string {
-  const h = Math.floor(hours);
-  const m = Math.floor((hours - h) * 60);
-  return `${h.toString().padStart(2, "0")}:${m.toString().padStart(2, "0")}`;
-}
-
-// Julian date calculation
-function getJulianDate(date: Date): number {
-  let year = date.getUTCFullYear();
-  let month = date.getUTCMonth() + 1;
-  const day = date.getUTCDate();
-
-  if (month <= 2) {
-    year -= 1;
-    month += 12;
-  }
-
-  const A = Math.floor(year / 100);
-  const B = 2 - A + Math.floor(A / 4);
-  return (
-    Math.floor(365.25 * (year + 4716)) +
-    Math.floor(30.6001 * (month + 1)) +
-    day +
-    B -
-    1524.5
-  );
-}
 
 // Solar parameters calculation
 function calculateSolarParameters(julianDate: number): {
@@ -75,7 +39,7 @@ function calculateHourAngle(
   );
 }
 
-// Main prayer times calculation function
+// Main prayer times calculation
 // requires:
 //  * latitude: float
 //  * longitude: float
@@ -113,7 +77,7 @@ export function calculatePrayerTimes(
   // temp: Hanafi Asr Time
   const shadowRatio = 1;
   const asrHA = Math.acos(
-    (Math.sin(Math.atan(1 / shadowRatio)) +
+    (Math.sin(Math.atan(shadowRatio)) +
       Math.sin(toRadians(latitude)) * Math.sin(declination)) /
       (Math.cos(toRadians(latitude)) * Math.cos(declination)),
   );

@@ -10,14 +10,7 @@ export function detectTimezoneOffset(
   longitude: number,
 ): number {
   // Calculate the UTC offset based on the longitude
-  const offset = Math.floor(longitude / 15);
-
-  // Adjust for time zones that are ahead or behind UTC by fractional offsets
-  if (longitude < 0 && longitude % 15 !== 0) {
-    return offset + 1; // Fix the off-by-one for longitudes in the negative hemisphere
-  } else if (longitude > 0 && longitude % 15 !== 0) {
-    return offset - 1; // Adjust for the positive hemisphere
-  }
+  const offset = Math.round(longitude / 15);
 
   return offset;
 }

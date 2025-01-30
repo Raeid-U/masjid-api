@@ -7,12 +7,6 @@ export function toDegrees(radians: number): number {
   return (radians * 180) / Math.PI;
 }
 
-export function formatTime(hours: number): string {
-  const h = Math.floor(hours);
-  const m = Math.floor((hours - h) * 60);
-  return `${h.toString().padStart(2, "0")}:${m.toString().padStart(2, "0")}`;
-}
-
 export function getJulianDate(date: Date): number {
   let year = date.getUTCFullYear();
   let month = date.getUTCMonth() + 1;

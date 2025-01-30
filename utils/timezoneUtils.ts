@@ -1,16 +1,28 @@
-import { find } from "geo-tz";
+export function convertPrayerTimes(
+  prayerTimes: Record<string, number>,
+  timeZone: string,
+): Record<string, string> {
+  const convertedTimes: Record<string, string> = {};
 
-export function detectTimezone(latitude: number, longitude: number): string {
-  const timezone = find(latitude, longitude);
-  return timezone.length > 0 ? timezone[0] : "UTC"; // Default to UTC if no timezone found
-}
+  Object.entries(prayerTimes).forEach(([prayer, time]) => {
+    // Convert decimal hours to a Date object in UTC
+    const utcDate = new Date(
+      Date.UTC(1970, 0, 1, Math.floor(time), (time % 1) * 60),
+    );
 
-export function detectTimezoneOffset(
-  latitude: number,
-  longitude: number,
-): number {
-  // Calculate the UTC offset based on the longitude
-  const offset = Math.round(longitude / 15);
+    // Convert to the target timezone
+    const formatter = new Intl.DateTimeFormat("en-US", {
+      timeZone,
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: false,
+    });
 
-  return offset;
+    // Extract hours and minutes from the formatted time
+    const formattedTime = formatter.format(utcDate);
+
+    convertedTimes[prayer] = formattedTime;
+  });
+
+  return convertedTimes;
 }

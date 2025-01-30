@@ -1,5 +1,4 @@
-import { toDegrees, toRadians, formatTime, getJulianDate } from "./utility";
-import { detectTimezone, detectTimezoneOffset } from "./timezoneUtils";
+import { toDegrees, toRadians, getJulianDate } from "./utility";
 
 // Solar parameters calculation
 function calculateSolarParameters(julianDate: number): {
@@ -48,12 +47,10 @@ export function calculatePrayerTimes(
   latitude: number,
   longitude: number,
   date: string,
-): { [key: string]: string } {
+): { [key: string]: number } {
   const parsedDate = new Date(date);
   const julianDate = getJulianDate(parsedDate);
   const { declination, equationOfTime } = calculateSolarParameters(julianDate);
-  const timezone = detectTimezone(latitude, longitude);
-  const offset = detectTimezoneOffset(latitude, longitude);
 
   const noon = (12 - equationOfTime - longitude / 15 + 24) % 24;
 
@@ -70,7 +67,7 @@ export function calculatePrayerTimes(
   const sunset = (noon + toDegrees(shuruqHA) / 15 + 24) % 24;
   const isha = (noon + toDegrees(ishaHA) / 15 + 24) % 24;
 
-  // temp: Maghrib as a offset of sunset time
+  // temp: Maghrib as an offset of sunset time
   const maghribOffset = 3 / 60; // Currently set to 3 minutes after Sunset
   const maghrib = (sunset + maghribOffset + 24) % 24;
 
@@ -83,24 +80,13 @@ export function calculatePrayerTimes(
   );
   const asr = (noon + toDegrees(asrHA) / 15 + 24) % 24;
 
-  const timezoneOffset = detectTimezoneOffset(latitude, longitude);
-  const localFajr = (fajr + timezoneOffset + 24) % 24;
-  const localShuruq = (sunrise + timezoneOffset + 24) % 24;
-  const localDhuhr = (noon + timezoneOffset + 24) % 24;
-  const localAsr = (asr + timezoneOffset + 24) % 24;
-  const localSunset = (sunset + timezoneOffset + 24) % 24;
-  const localMaghrib = (maghrib + timezoneOffset + 24) % 24;
-  const localIsha = (isha + timezoneOffset + 24) % 24;
-
   return {
-    Timezone: timezone,
-    "Offset from UTC": String(offset),
-    Fajr: formatTime(localFajr),
-    Shuruq: formatTime(localShuruq),
-    Dhuhr: formatTime(localDhuhr),
-    Asr: formatTime(localAsr),
-    Sunset: formatTime(localSunset),
-    Maghrib: formatTime(localMaghrib),
-    Isha: formatTime(localIsha),
+    Fajr: fajr,
+    Shuruq: sunrise,
+    Dhuhr: noon,
+    Asr: asr,
+    Sunset: sunset,
+    Maghrib: maghrib,
+    Isha: isha,
   };
 }

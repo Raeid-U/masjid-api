@@ -8,12 +8,11 @@
     "api-start": "npm run build && npm start"
   },
   "keywords": [],
-  "author": "",
+  "author": "Raeid Usmanali",
   "license": "ISC",
-  "description": "",
+  "description": "Express-based API for calculating Salah Times and Quranic Ayah Lookup",
   "dependencies": {
-    "express": "^4.21.2",
-    "geo-tz": "^8.1.2"
+    "express": "^4.21.2"
   },
   "devDependencies": {
     "@types/express": "^5.0.0",

@@ -1,4 +1,4 @@
-# Masjid API
+# Solaris API
 
 The passion project of a Western Muslim in CS.
 
@@ -14,7 +14,7 @@ This Express.js-based API offers mathematical Salah (prayer) time calculation an
 
 ## Project Structure
 ```
-masjid-api/
+solaris-api/
 ├── data/                 # Quranic data, translations, and transliterations
 │   ├── quran.json        # Arabic text of the Quran
 │   ├── translations/     # Translation files (e.g., translation-en.json)
@@ -35,8 +35,8 @@ masjid-api/
 ## Installation
 1. Clone the repository:
    ```bash
-   gh repo clone Raeid-U/masjid-api
-   cd masjid-api
+   gh repo clone Raeid-U/solaris-api
+   cd solaris-api
    ```
 
 2. Install dependencies:
@@ -76,6 +76,19 @@ The following scripts are available in `package.json`:
   - Response:
     ```json
     { "Assalamualaikum": "Ahlan wa sahlan wa marhaban, Welcome to the Masjid API!" }
+    ```
+
+### Help Endpoint
+- **GET /help**
+  - Response:
+    ```json
+    {
+        "/": "Landing",
+        "/help": "You are here",
+        "/status": "Check the status of the SOLARIS & QURAN portions of the app",
+        "/salah": "Takes in (lattitude, longitude, date, timezone) and returns the salah times for that region",
+        "/quran": "Takes in a format specifier & metadata to perform a search on our Quran database"
+    }   
     ```
 
 ### Status Endpoint

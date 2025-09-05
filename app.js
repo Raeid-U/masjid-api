@@ -24,8 +24,19 @@ app.use(limiter);
 // Root route
 app.get("/", (_req, res) => {
   res.json({
-    Assalamualaikum: "Ahlan wa sahlan wa marhaban, Welcome to the Masjid API!",
+    Assalamualaikum: "Ahlan wa sahlan wa marhaban, Welcome to the Solaris API!",
+    Help: "Navigate to /help to get a list of options"
   });
+});
+
+app.get("/help", (_req, res) => {
+    res.json({
+            "/": "Landing",
+            "/help": "You are here",
+            "/status": "Check the status of the SOLARIS & QURAN portions of the app",
+            "/salah": "Takes in (lattitude, longitude, date, timezone) and returns the salah times for that region",
+            "/quran": "Takes in a format specifier & metadata to perform a search on our Quran database"
+    });
 });
 
 // Status endpoint

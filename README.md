@@ -156,7 +156,7 @@ The following scripts are available in `package.json`:
 
 1. Build and start the server using the custom alias:
    ```bash
-   npm run masjid-api-start
+   npm run api-start
    ```
 
 2. Open your browser or use a tool like Postman to test the endpoints.
